@@ -5,6 +5,25 @@ from django.core.validators import (
 )
 from auths.models import CustomUser
 
+# TODO 
+# добавить факултеты
+# награды универа
+# logo
+# алрес почты инста, сайт, и т.д.
+# колво грантов на факультет
+# 
+class City(models.Model):
+    title = models.CharField(
+        verbose_name='название города',
+        max_length=100
+    )
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = 'город'
+        verbose_name_plural = 'города'
+        ordering = ('-id',)
 
 
 class Comment(models.Model):
@@ -27,6 +46,14 @@ class Comment(models.Model):
         verbose_name='дата и время обновления',
         auto_now=True
     )
+    university = models.ForeignKey(
+        verbose_name='университет',
+        to="University",
+        related_name='comment',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     
     def __str__(self):
         return f"{self.author} | {self.text}"
@@ -45,17 +72,20 @@ class University(models.Model):
         null=False,
         blank=False
     )
+    city= models.ForeignKey(
+        verbose_name='город',
+        to=City,
+        related_name='university',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     address = models.CharField(
         verbose_name='адрес университета',
         max_length=200,
         null=False,
         blank=False,
         help_text='Формат: страна,город,улица,номер улицы'
-    )
-    comments = models.ManyToManyField(
-        verbose_name='комментарии',
-        to=Comment,
-        
     )
     def __str__(self):
         return self.title

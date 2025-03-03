@@ -1,0 +1,67 @@
+header{
+    background: rgb(var(--background-primary));
+    height: 3rem;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 2px solid rgb(var(--background-secondary), 0.08);
+}
+header .ava {
+    margin-left: auto;
+    margin-right: 1rem;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    justify-items: center;
+    gap: 5px;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
+
+header .ava span {
+    font-size: 0.8rem;
+    opacity: 0;
+    visibility: collapse;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+header .ava .ava-btn {
+    background: transparent;
+    padding: 0;
+    border-radius: 50%;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+    outline: 0;
+    border: 0;
+    margin: 0;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    opacity: 0;
+    visibility: collapse;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+header .ava:hover, 
+header .ava:focus {
+    span {
+        opacity: 1;
+        visibility: visible;
+    }
+    .ava-btn {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    header{
+        height: 2rem;
+        font-size: 2rem;
+    }
+}

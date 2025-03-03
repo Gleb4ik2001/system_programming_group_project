@@ -1,0 +1,7 @@
+main{
+    display: flex;
+    flex-direction: column;
+    background: rgb(var(--background-primary));
+    color: var(--text-primary);
+    height: 100vh;
+}

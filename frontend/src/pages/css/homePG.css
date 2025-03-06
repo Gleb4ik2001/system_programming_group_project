@@ -1,7 +1,24 @@
 main{
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 1fr;
     background: rgb(var(--background-primary));
     color: var(--text-primary);
     height: 100vh;
+    overflow: hidden;
+}
+
+.main-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap-reverse;
+    gap: 1rem;
+    overflow: scroll;
+}
+
+@media  screen and (max-width: 840px) {
+    .main-body{
+        flex-direction: column;
+        align-items: center;
+    }
 }

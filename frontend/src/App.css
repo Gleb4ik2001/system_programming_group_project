@@ -1,6 +1,8 @@
 :root{
   --background-primary: 18, 18, 18;
   --background-secondary: 255, 255, 255;
+
+  --card-linear-color: -45deg, #e81cff 0%, #40c9ff 100%;
   --text-primary: #ffff;
   --text-secondary: gray;
 }

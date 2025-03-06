@@ -1,6 +1,7 @@
 header{
     background: rgb(var(--background-primary));
     height: 3rem;
+    position: relative;
     font-size: 1rem;
     display: flex;
     flex-direction: row;

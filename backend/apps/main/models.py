@@ -4,6 +4,10 @@ from django.core.validators import (
     MaxValueValidator
 )
 from auths.models import CustomUser
+from django.db.models import Avg
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+
 
 # TODO 
 # добавить факултеты
@@ -118,6 +122,14 @@ class University(models.Model):
         decimal_places=2
     )
     logo = models.URLField(verbose_name="Логотип", max_length=500, null=True, blank=True)
+    website = models.URLField(verbose_name="Сайт", max_length=500, null=True, blank=True)
+
+    def update_rating(self):
+        """Обновляет рейтинг университета на основе среднего рейтинга комментариев."""
+        avg_rating = self.comment.aggregate(avg_rating=Avg('rating'))['avg_rating']
+        self.rating = round(avg_rating, 2) if avg_rating is not None else 0
+        self.save(update_fields=['rating'])
+
     def __str__(self):
         return self.title
     
@@ -126,3 +138,9 @@ class University(models.Model):
         verbose_name_plural = 'университеты'
         ordering = ('-id',)
 
+@receiver(post_save, sender=Comment)
+@receiver(post_delete, sender=Comment)
+def update_university_rating(sender, instance, **kwargs):
+    """Обновляет рейтинг университета при изменении комментариев."""
+    if instance.university:
+        instance.university.update_rating()

@@ -1,0 +1,23 @@
+.comments-content{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin: 0;
+}
+
+.comments-content .header{
+    margin: 0;
+    font-size: 1rem;
+    display: flex;
+    align-items: last baseline;
+    justify-content: space-between;
+}
+
+.comments-content .comment-time{
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+}
+
+.comments-content .comment-text{
+    font-size: 0.9rem;
+}

@@ -10,7 +10,6 @@
   padding: 0.2rem;
 }
 
-/* Удалено pointer-events: none */
 
 table {
   width: 100%;
@@ -34,8 +33,7 @@ th img {
 }
 
 table #title {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 0.1rem;
   margin-bottom: 0;
 }
 
@@ -49,6 +47,7 @@ table #rating {
 }
 
 tfoot tr td .table-btn{
+  cursor: pointer;
   width: 100%;
   padding: 10px;
   background: transparent;

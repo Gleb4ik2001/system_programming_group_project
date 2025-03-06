@@ -1,105 +1,35 @@
-import React from "react";
+import React , {useState , useEffect} from "react";
 import "../css/homePG.css";
 import TopBar from "../../components/jsx/topBar";
 import Card from "../../components/jsx/card";
 import SchoolIcon from '@mui/icons-material/School';
 
-const data = [
-    {
-        id: "1",
-        icon: <SchoolIcon/>,
-        title: "KarTU",
-        rating: "3.5"
-    },
-    {
-        id: "2",
-        icon: <SchoolIcon/>,
-        title: "KarGU",
-        rating: "5"
-    },{
-        id: "3",
-        icon: <SchoolIcon/>,
-        title: "Nazarbaev",
-        rating: "5"
-    },
-    {
-        id: "4",
-        icon: <SchoolIcon/>,
-        title: "TECH",
-        rating: "5"
-    },
-    {
-        id: "5",
-        icon: <SchoolIcon/>,
-        title: "POLPO",
-        rating: "5"
-    },
-    {
-        id: "1",
-        icon: <SchoolIcon/>,
-        title: "KarTU",
-        rating: "3.5"
-    },
-    {
-        id: "2",
-        icon: <SchoolIcon/>,
-        title: "KarGU",
-        rating: "5"
-    },{
-        id: "3",
-        icon: <SchoolIcon/>,
-        title: "Nazarbaev",
-        rating: "5"
-    },
-    {
-        id: "4",
-        icon: <SchoolIcon/>,
-        title: "TECH",
-        rating: "5"
-    },
-    {
-        id: "5",
-        icon: <SchoolIcon/>,
-        title: "POLPO",
-        rating: "5"
-    }
-    ,{
-        id: "1",
-        icon: <SchoolIcon/>,
-        title: "KarTU",
-        rating: "3.5"
-    },
-    {
-        id: "2",
-        icon: <SchoolIcon/>,
-        title: "KarGU",
-        rating: "5"
-    },{
-        id: "3",
-        icon: <SchoolIcon/>,
-        title: "Nazarbaev",
-        rating: "5"
-    },
-    {
-        id: "4",
-        icon: <SchoolIcon/>,
-        title: "TECH",
-        rating: "5"
-    },
-    {
-        id: "5",
-        icon: <SchoolIcon/>,
-        title: "POLPO",
-        rating: "5"
-    }
-]
 
 export default function HomePG(){
+    const [universityList , setUniversityList] = useState([])
+
+    useEffect(() => {
+        fetch('http://192.168.0.10:8000/university/api/university-list/')
+            .then(response => {
+                return response.text();  // Пробуем получить текстовый ответ
+            })
+            .then(data => {
+                try {
+                    const jsonData = JSON.parse(data); // Пробуем разобрать JSON
+                    setUniversityList(Array.isArray(jsonData) ? jsonData : jsonData.data);
+                } catch (error) {
+                    alert("Ошибка при парсинге JSON: " + error);
+                }
+            })
+            .catch(error => alert("Ошибка при загрузке данных: " + error));
+    }, []);
+    
+    
     return(
         <main>
             <TopBar/>
             <div className="main-body">
-            <Card data={data}/>
+            <Card data={universityList}/>
             </div>
         </main>
     )

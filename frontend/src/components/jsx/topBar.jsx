@@ -10,7 +10,7 @@ export default function TopBar({isLogged}){
         <div className="ava">
             <span>NickName</span>
             <Button className='ava-btn'><ExitToAppIcon sx={{fontSize: "1.2rem" , margin: "0.4rem 0.2rem"}}/></Button>
-            <AccountCircleIcon className="ava-icon"/>
+            <AccountCircleIcon className="ava-icon" sx={{cursor:"pointer"}}/>
 
         </div>
     </header>)

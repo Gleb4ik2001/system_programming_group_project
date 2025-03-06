@@ -54,6 +54,21 @@ class Comment(models.Model):
         null=True,
         blank=True
     )
+    rating = models.DecimalField(
+        verbose_name='рейтинг',
+        validators=[
+            MinValueValidator(
+                limit_value=0,
+                message='рейтинг не может быть отрицательным'
+            ),
+            MaxValueValidator(
+                limit_value=5,
+                message='рейтинг не может быть больше 5'
+            )
+        ],
+        max_digits=3,
+        decimal_places=2
+    )
     
     def __str__(self):
         return f"{self.author} | {self.text}"
@@ -87,32 +102,6 @@ class University(models.Model):
         blank=False,
         help_text='Формат: страна,город,улица,номер улицы'
     )
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name = 'университет'
-        verbose_name_plural = 'университеты'
-        ordering = ('-id',)
-
-
-class Rating(models.Model):
-    author = models.ForeignKey(
-        verbose_name='автор',
-        to=CustomUser,
-        related_name='rating',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
-    university = models.ForeignKey(
-        verbose_name='университет/колледж',
-        to=University,
-        related_name='rating',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
     rating = models.DecimalField(
         verbose_name='рейтинг',
         validators=[
@@ -128,21 +117,12 @@ class Rating(models.Model):
         max_digits=3,
         decimal_places=2
     )
-    datetime_created = models.DateTimeField(
-        verbose_name='дата и время создания рейтинга',
-        auto_now_add=True
-    )
-    datetime_updated = models.DateTimeField(
-        verbose_name='дата и время обновления рейтинга',
-        auto_now=True
-    )
-    
+    logo = models.URLField(verbose_name="Логотип", max_length=500, null=True, blank=True)
     def __str__(self):
-        return f"{self.author} оценил {self.university} на {self.rating}/5"
+        return self.title
     
     class Meta:
-        verbose_name = 'рейтинг'
-        verbose_name_plural = 'рейтинги'
-        unique_together = ('author','university',)
+        verbose_name = 'университет'
+        verbose_name_plural = 'университеты'
         ordering = ('-id',)
 

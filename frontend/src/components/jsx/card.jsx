@@ -4,7 +4,11 @@ import "../css/card.css";
 import logo from "../../assets/ogo_stu.png";
 
 function Card({ data }) {
-    return (
+  const handleClick = (e)=>{
+
+  }
+  if (!data || data.length === 0) return <>Sorry, no data</>;
+  return (
       <>
         {data.map((item, i) => (
         <div className="card-bg" key={i}>
@@ -12,13 +16,13 @@ function Card({ data }) {
             <thead>
               <tr>
                 <th>
-                  <img src={logo} alt="logo" />
+                {item.logo ? <img src={item.logo} alt="logo" /> : <p>Логотип отсутствует</p>}
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr id="title">
-                <td>{item.title}</td>
+                <td>{item.title.length > 20 ? item.title.match(/\(([^)]+)\)/)?.[1]:item.title}</td>
               </tr>
               <tr>
                 <td id="rating">
